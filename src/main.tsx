@@ -12,6 +12,7 @@ import { ProtectRoute } from "./components";
 import { DashboardLayout } from "./layouts";
 import { HomePage } from "./pages/dashboard";
 import {
+  CoursesAdminPage,
   StudentsAdminPage,
   SubjectsAdminPage,
   TeachersAdminPage,
@@ -47,6 +48,7 @@ createRoot(document.getElementById("root")!).render(
                       <Route path="teachers" element={<TeachersAdminPage />} />
                       <Route path="students" element={<StudentsAdminPage />} />
                       <Route path="subjects" element={<SubjectsAdminPage />} />
+                      <Route path="courses" element={<CoursesAdminPage />} />
                     </Route>
                   </Route>
                 </Route>

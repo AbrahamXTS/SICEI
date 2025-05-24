@@ -13,6 +13,11 @@ import { StudentDTO } from "@/interfaces/http/responses";
 
 const STUDENTS_CATALOG_TABLE_COLUMNS: MRT_ColumnDef<StudentDTO>[] = [
   {
+    header: "Matrícula",
+    accessorKey: "id",
+    enableColumnFilter: false,
+  },
+  {
     header: "Nombre",
     accessorKey: "name",
     filterVariant: "autocomplete",

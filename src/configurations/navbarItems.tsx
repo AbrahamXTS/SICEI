@@ -1,5 +1,6 @@
 import {
   Icon,
+  IconCertificate,
   IconChalkboardTeacher,
   IconHome,
   IconSchool,
@@ -39,6 +40,11 @@ export const NAVBAR_ITEMS: NavbarItemType[] = [
         label: "Asignaturas",
         url: "/dashboard/admin/subjects",
         icon: IconSubscript,
+      },
+      {
+        label: "Cursos",
+        url: "/dashboard/admin/courses",
+        icon: IconCertificate,
       },
     ],
   },
