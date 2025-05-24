@@ -7,21 +7,6 @@ import {
 } from "@/interfaces/http/requests";
 import { TeacherDTO, ResponseWrapper } from "@/interfaces/http/responses";
 
-export const useGetTeacherById = (teacherId: string) => {
-  const axiosClient = useAxiosClient();
-
-  return useQuery({
-    queryKey: ["teacher", teacherId],
-    queryFn: async () => {
-      const { data } = await axiosClient.get<ResponseWrapper<TeacherDTO>>(
-        `/api/v1/teachers/${teacherId}`,
-      );
-
-      return data;
-    },
-  });
-};
-
 export const useGetTeachers = () => {
   const axiosClient = useAxiosClient();
 

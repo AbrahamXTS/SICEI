@@ -3,6 +3,7 @@ import { IconEdit, IconTrash } from "@tabler/icons-react";
 import { MRT_ColumnDef } from "mantine-react-table";
 
 import { Table } from "@/components";
+import { CourseEnrollmentsTable } from "@/components/dashboard/admin/course/CourseEnrollmentsTable";
 import {
   useCreateCourse,
   useDeleteCourse,
@@ -38,7 +39,7 @@ export const CoursesAdminPage = () => {
   return (
     <>
       <Flex justify="flex-end" pt="xl">
-        <Button onClick={showCreateCourseModal}>Añadir curso</Button>
+        <Button onClick={showCreateCourseModal}>Crear curso</Button>
       </Flex>
 
       <Box pb="xl" pt="md">
@@ -50,6 +51,10 @@ export const CoursesAdminPage = () => {
             placeholder: "Buscar un curso",
             mx: "0rem",
           }}
+          positionExpandColumn="last"
+          renderDetailPanel={({ row: { original: course } }) => (
+            <CourseEnrollmentsTable courseId={course.id} />
+          )}
           renderRowActionMenuItems={({ row: { original: course } }) => (
             <>
               <Menu.Item

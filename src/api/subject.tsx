@@ -7,21 +7,6 @@ import {
 } from "@/interfaces/http/requests";
 import { SubjectDTO, ResponseWrapper } from "@/interfaces/http/responses";
 
-export const useGetSubjectById = (subjectId: string) => {
-  const axiosClient = useAxiosClient();
-
-  return useQuery({
-    queryKey: ["subject", subjectId],
-    queryFn: async () => {
-      const { data } = await axiosClient.get<ResponseWrapper<SubjectDTO>>(
-        `/api/v1/subjects/${subjectId}`
-      );
-
-      return data;
-    },
-  });
-};
-
 export const useGetSubjects = () => {
   const axiosClient = useAxiosClient();
 

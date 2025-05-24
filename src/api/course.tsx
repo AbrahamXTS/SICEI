@@ -5,16 +5,20 @@ import {
   CreateCourseRequestDTO,
   UpdateCourseRequestDTO,
 } from "@/interfaces/http/requests";
-import { CourseDTO, ResponseWrapper } from "@/interfaces/http/responses";
+import {
+  CourseDTO,
+  EnrollmentDTO,
+  ResponseWrapper,
+} from "@/interfaces/http/responses";
 
-export const useGetCourseById = (courseId: string) => {
+export const useGetEnrollmentsByCourseId = (courseId: string) => {
   const axiosClient = useAxiosClient();
 
   return useQuery({
-    queryKey: ["course", courseId],
+    queryKey: ["course", courseId, "enrollments"],
     queryFn: async () => {
-      const { data } = await axiosClient.get<ResponseWrapper<CourseDTO>>(
-        `/api/v1/courses/${courseId}`
+      const { data } = await axiosClient.get<ResponseWrapper<EnrollmentDTO[]>>(
+        `/api/v1/courses/${courseId}/enrollments`
       );
 
       return data;
@@ -29,9 +33,7 @@ export const useGetCourses = () => {
     queryKey: ["courses"],
     queryFn: async () => {
       const { data } =
-        await axiosClient.get<ResponseWrapper<CourseDTO[]>>(
-          "/api/v1/courses"
-        );
+        await axiosClient.get<ResponseWrapper<CourseDTO[]>>("/api/v1/courses");
 
       return data;
     },
