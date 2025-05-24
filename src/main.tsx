@@ -11,7 +11,11 @@ import { theme } from "./configurations";
 import { ProtectRoute } from "./components";
 import { DashboardLayout } from "./layouts";
 import { HomePage } from "./pages/dashboard";
-import { StudentsAdminPage, TeachersAdminPage } from "./pages/dashboard/admin";
+import {
+  StudentsAdminPage,
+  SubjectsAdminPage,
+  TeachersAdminPage,
+} from "./pages/dashboard/admin";
 import { LandingPage } from "./pages/landing-page";
 
 import "dayjs/locale/es-mx";
@@ -42,6 +46,7 @@ createRoot(document.getElementById("root")!).render(
                     <Route path="admin">
                       <Route path="teachers" element={<TeachersAdminPage />} />
                       <Route path="students" element={<StudentsAdminPage />} />
+                      <Route path="subjects" element={<SubjectsAdminPage />} />
                     </Route>
                   </Route>
                 </Route>
