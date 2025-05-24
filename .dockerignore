@@ -1,0 +1,6 @@
+kubernetes
+node_modules
+pnpm-lock.yaml
+.env*
+.git
+.github

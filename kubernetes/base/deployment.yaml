@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend
+  namespace: sicei
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      labels:
+        app: frontend
+      namespace: sicei
+    spec:
+      containers:
+        - image: nexus-repository.abrahamespinosa.dev/sicei/frontend:latest
+          imagePullPolicy: Always
+          name: frontend
+          ports:
+            - containerPort: 80
+              name: website-port
+              protocol: TCP
+      imagePullSecrets:
+        - name: nexus-repository-credentials

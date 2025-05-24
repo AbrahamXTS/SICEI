@@ -1,0 +1,45 @@
+name: sicei-frontend-workflow
+
+on:
+  push:
+    branches:
+      - development
+  pull_request:
+    branches:
+      - development
+
+jobs:
+  update-frontend:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Login to docker registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ secrets.NEXUS_REPOSITORY_HOSTNAME }}
+          username: ${{ secrets.NEXUS_REPOSITORY_USERNAME }}
+          password: ${{ secrets.NEXUS_REPOSITORY_PASSWORD }}
+
+      - name: Setup kubectl
+        uses: tale/kubectl-action@v1
+        with:
+          base64-kube-config: ${{ secrets.LOCAL_CLUSTER_KUBECONFIG }}
+          kubectl-version: v1.32.0
+
+      - name: Extract frontend properties
+        id: frontend-properties
+        uses: rexdefuror/read-package-json@v1.0.5
+
+      - name: Build, push and deploy image from frontend application
+        run: |
+          docker build \
+            --build-arg VITE_APPLICATION_HOST=${{ secrets.APPLICATION_HOST }} \
+            --build-arg VITE_API_HOST=${{ secrets.API_HOST }} \
+            --build-arg VITE_AUTH0_CLIENT_ID=${{ secrets.AUTH0_CLIENT_ID }} \
+            --build-arg VITE_AUTH0_DOMAIN=${{ secrets.AUTH0_DOMAIN }} \
+            -t ${{ secrets.NEXUS_REPOSITORY_HOSTNAME }}/sicei/frontend:${{ env.PACKAGE_VERSION }} .
+          docker push ${{ secrets.NEXUS_REPOSITORY_HOSTNAME }}/sicei/frontend:${{ env.PACKAGE_VERSION }}
+          kubectl apply --kustomize kubernetes/overlays/prod
+          kubectl set image deployment/frontend -n=sicei frontend=${{ secrets.NEXUS_REPOSITORY_HOSTNAME }}/sicei/frontend:${{ env.PACKAGE_VERSION }}
