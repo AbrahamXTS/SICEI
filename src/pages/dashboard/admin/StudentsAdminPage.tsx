@@ -38,9 +38,10 @@ const STUDENTS_CATALOG_TABLE_COLUMNS: MRT_ColumnDef<StudentDTO>[] = [
     filterVariant: "autocomplete",
   },
   {
+    id: "equivalentDegree",
     header: "Semestre equivalente",
     accessorKey: "equivalentDegree",
-    filterVariant: "range",
+    filterFn: "inNumberRange",
   },
 ];
 
