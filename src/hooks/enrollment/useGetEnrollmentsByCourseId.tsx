@@ -1,6 +1,6 @@
 import { notifications } from "@mantine/notifications";
 
-import { useGetEnrollmentsByCourseId as useGetEnrollmentsByCourseIdService } from "@/api/course";
+import { useGetEnrollmentsByCourseId as useGetEnrollmentsByCourseIdService } from "@/api/enrollment";
 
 export const useGetEnrollmentsByCourseId = (courseId: string) => {
   const { data, isError, isPending } =

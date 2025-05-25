@@ -3,6 +3,7 @@ import { IconEdit, IconTrash } from "@tabler/icons-react";
 import { MRT_ColumnDef } from "mantine-react-table";
 
 import { Table } from "@/components";
+import { StudentKardexTable } from "@/components/dashboard/admin/student/StudentKardexTable";
 import {
   useCreateStudent,
   useDeleteStudent,
@@ -68,6 +69,10 @@ export const StudentsAdminPage = () => {
             placeholder: "Buscar un estudiante",
             mx: "0rem",
           }}
+          positionExpandColumn="last"
+          renderDetailPanel={({ row: { original: student } }) => (
+            <StudentKardexTable studentId={student.id} />
+          )}
           renderRowActionMenuItems={({ row: { original: student } }) => (
             <>
               <Menu.Item

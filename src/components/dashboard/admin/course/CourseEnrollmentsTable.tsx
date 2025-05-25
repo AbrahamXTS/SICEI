@@ -3,7 +3,7 @@ import { IconDeviceIpadStar, IconTrash } from "@tabler/icons-react";
 import { MRT_ColumnDef } from "mantine-react-table";
 
 import { Table } from "@/components";
-import { useGetEnrollmentsByCourseId } from "@/hooks/course";
+import { useGetEnrollmentsByCourseId } from "@/hooks/enrollment";
 import { useCreateEnrollment, useDeleteEnrollment } from "@/hooks/enrollment";
 import { EnrollmentDTO } from "@/interfaces/http/responses";
 import { useCreateGrade, useUpdateGrade } from "@/hooks/grade";
@@ -30,13 +30,13 @@ const COURSE_ENROLLMENTS_TABLE_COLUMNS: MRT_ColumnDef<EnrollmentDTO>[] = [
   },
 ];
 
-interface CourseEnrollmentsTable {
+interface CourseEnrollmentsTableProps {
   courseId: string;
 }
 
 export const CourseEnrollmentsTable = ({
   courseId,
-}: CourseEnrollmentsTable) => {
+}: CourseEnrollmentsTableProps) => {
   const { enrollments, isGettingEnrollments } =
     useGetEnrollmentsByCourseId(courseId);
   const {

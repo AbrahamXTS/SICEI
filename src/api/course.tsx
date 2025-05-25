@@ -5,26 +5,7 @@ import {
   CreateCourseRequestDTO,
   UpdateCourseRequestDTO,
 } from "@/interfaces/http/requests";
-import {
-  CourseDTO,
-  EnrollmentDTO,
-  ResponseWrapper,
-} from "@/interfaces/http/responses";
-
-export const useGetEnrollmentsByCourseId = (courseId: string) => {
-  const axiosClient = useAxiosClient();
-
-  return useQuery({
-    queryKey: ["course", courseId, "enrollments"],
-    queryFn: async () => {
-      const { data } = await axiosClient.get<ResponseWrapper<EnrollmentDTO[]>>(
-        `/api/v1/courses/${courseId}/enrollments`
-      );
-
-      return data;
-    },
-  });
-};
+import { CourseDTO, ResponseWrapper } from "@/interfaces/http/responses";
 
 export const useGetCourses = () => {
   const axiosClient = useAxiosClient();
