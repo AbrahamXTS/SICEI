@@ -9,7 +9,7 @@ const STUDENT_KARDEX_TABLE_COLUMNS: MRT_ColumnDef<EnrollmentDTO>[] = [
   {
     id: "asignatura",
     header: "Asignatura",
-    accessorFn: ({ course }) => course.subject.name,
+    accessorFn: ({ course }) => course?.subject?.name,
     filterVariant: "autocomplete",
   },
   {

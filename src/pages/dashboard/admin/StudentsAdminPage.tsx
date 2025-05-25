@@ -69,7 +69,7 @@ export const StudentsAdminPage = () => {
             placeholder: "Buscar un estudiante",
             mx: "0rem",
           }}
-          positionExpandColumn="last"
+          positionExpandColumn="first"
           renderDetailPanel={({ row: { original: student } }) => (
             <StudentKardexTable studentId={student.id} />
           )}

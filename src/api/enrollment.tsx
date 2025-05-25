@@ -23,7 +23,7 @@ export const useGetEnrollmentsByStudentId = (studentId: string) => {
   const axiosClient = useAxiosClient();
 
   return useQuery({
-    queryKey: ["course", studentId, "enrollments"],
+    queryKey: ["student", studentId, "enrollments"],
     queryFn: async () => {
       const { data } = await axiosClient.get<ResponseWrapper<EnrollmentDTO[]>>(
         `/api/v1/students/${studentId}/enrollments`
