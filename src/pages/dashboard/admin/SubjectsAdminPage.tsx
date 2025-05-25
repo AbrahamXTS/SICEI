@@ -17,6 +17,11 @@ const SUBJECTS_CATALOG_TABLE_COLUMNS: MRT_ColumnDef<SubjectDTO>[] = [
     accessorKey: "name",
     filterVariant: "autocomplete",
   },
+  {
+    header: "Grado en que se imparte",
+    accessorKey: "offeredInDegree",
+    filterFn: "inNumberRange",
+  },
 ];
 
 export const SubjectsAdminPage = () => {

@@ -4,16 +4,31 @@ import { useDisclosure } from "@mantine/hooks";
 import { notifications } from "@mantine/notifications";
 import { useQueryClient } from "@tanstack/react-query";
 import { isAxiosError } from "axios";
+import { useMemo } from "react";
 
 import { useCreateEnrollment as useCreateEnrollmentService } from "@/api/enrollment";
 import { CreateEnrollmentRequestDTO } from "@/interfaces/http/requests";
+import { CourseDTO } from "@/interfaces/http/responses";
+import { transformToSelectDataType } from "@/utils";
 
 import { useGetStudents } from "../student";
 
-export const useCreateEnrollment = (courseId: string) => {
+export const useCreateEnrollment = (course: CourseDTO) => {
   const queryClient = useQueryClient();
 
-  const { transformedValues: students } = useGetStudents();
+  const { students } = useGetStudents();
+
+  const studentsInSameDegree = useMemo(() => {
+    const studentsInSameDegree = students.filter(
+      (student) => student.equivalentDegree === course.subject.offeredInDegree
+    );
+
+    return transformToSelectDataType(studentsInSameDegree, (student) => ({
+      label: `${student.name} ${student.lastName} ${student.secondLastName}`,
+      value: student.id,
+    }));
+  }, [course, students]);
+
   const { isPending, mutate } = useCreateEnrollmentService();
   const [
     isCreateEnrollmentModalOpen,
@@ -50,7 +65,7 @@ export const useCreateEnrollment = (courseId: string) => {
       },
       onSuccess: () => {
         queryClient.invalidateQueries({
-          queryKey: ["course", courseId, "enrollments"],
+          queryKey: ["course", course.id, "enrollments"],
         });
       },
     });
@@ -78,16 +93,25 @@ export const useCreateEnrollment = (courseId: string) => {
               {...getInputProps("courseId")}
             />
             <Select
-              data={students}
+              data={studentsInSameDegree}
               label="Estudiante"
-              nothingFoundMessage="Sin coincidencias"
+              nothingFoundMessage="No se encontraron estudiantes cursando el mismo grado en el que se imparte el grupo"
               placeholder="Seleccione el estudiante a inscribir"
               searchable
               withAsterisk
               {...getInputProps("studentId")}
             />
             <Select
-              data={["REGULAR", "EXTRAORDINARY"]}
+              data={[
+                {
+                  label: "Regular",
+                  value: "REGULAR",
+                },
+                {
+                  label: "Recursamiento",
+                  value: "EXTRAORDINARY",
+                },
+              ]}
               label="Tipo de inscripción"
               placeholder="Seleccione el tipo de inscripción del alumno"
               withAsterisk

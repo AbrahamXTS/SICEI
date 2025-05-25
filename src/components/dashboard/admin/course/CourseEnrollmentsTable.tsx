@@ -9,10 +9,13 @@ import { useRef } from "react";
 import { useReactToPrint } from "react-to-print";
 
 import { Table } from "@/components";
-import { useGetEnrollmentsByCourseId } from "@/hooks/enrollment";
+import {
+  useCreateEnrollment,
+  useDeleteEnrollment,
+  useGetEnrollmentsByCourseId,
+} from "@/hooks/enrollment";
 import { useCreateGrade, useUpdateGrade } from "@/hooks/grade";
-import { useCreateEnrollment, useDeleteEnrollment } from "@/hooks/enrollment";
-import { EnrollmentDTO } from "@/interfaces/http/responses";
+import { CourseDTO, EnrollmentDTO } from "@/interfaces/http/responses";
 
 const COURSE_ENROLLMENTS_TABLE_COLUMNS: MRT_ColumnDef<EnrollmentDTO>[] = [
   {
@@ -37,19 +40,21 @@ const COURSE_ENROLLMENTS_TABLE_COLUMNS: MRT_ColumnDef<EnrollmentDTO>[] = [
 ];
 
 interface CourseEnrollmentsTableProps {
-  courseId: string;
+  course: CourseDTO;
 }
 
 export const CourseEnrollmentsTable = ({
-  courseId,
+  course,
 }: CourseEnrollmentsTableProps) => {
+  const { id: courseId } = course;
+
   const { enrollments, isGettingEnrollments } =
     useGetEnrollmentsByCourseId(courseId);
   const {
     createEnrollmentModal,
     isCreatingAEnrollment,
     showCreateEnrollmentModal,
-  } = useCreateEnrollment(courseId);
+  } = useCreateEnrollment(course);
   const { deleteEnrollment, isDeletingAEnrollment } =
     useDeleteEnrollment(courseId);
 

@@ -81,6 +81,7 @@ export const useUpdateCourse = () => {
             />
             <Select
               data={subjects}
+              disabled
               label="Nombre de la asignatura"
               nothingFoundMessage="Sin coincidencias"
               placeholder="Seleccione la asignatura que se impartirá"

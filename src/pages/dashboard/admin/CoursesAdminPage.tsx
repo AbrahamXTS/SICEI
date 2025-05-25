@@ -53,7 +53,7 @@ export const CoursesAdminPage = () => {
           }}
           positionExpandColumn="last"
           renderDetailPanel={({ row: { original: course } }) => (
-            <CourseEnrollmentsTable courseId={course.id} />
+            <CourseEnrollmentsTable course={course} />
           )}
           renderRowActionMenuItems={({ row: { original: course } }) => (
             <>

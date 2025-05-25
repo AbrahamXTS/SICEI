@@ -18,7 +18,7 @@ export const useGetSubjects = () => {
     isGettingSubjects: isPending,
     subjects: data?.data ?? [],
     transformedValues: transformToSelectDataType(data?.data, (subject) => ({
-      label: `${subject.name}`,
+      label: `${subject.name} - Semestre ${subject.offeredInDegree}`,
       value: subject.id,
     })),
   };
