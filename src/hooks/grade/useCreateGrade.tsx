@@ -82,6 +82,7 @@ export const useCreateGrade = (courseId: string) => {
               label="Calificación"
               min={0}
               max={100}
+              withAsterisk
               {...getInputProps("score")}
             />
           </Stack>

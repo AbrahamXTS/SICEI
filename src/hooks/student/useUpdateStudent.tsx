@@ -30,8 +30,8 @@ export const useUpdateStudent = () => {
         id: isNotEmpty("El id del estudiante es inválido."),
         email: isEmail("El correo electrónico del estudiante es inválido."),
         equivalentDegree: (value) =>
-          value < 0 || value > 20
-            ? "El semestre equivalente debe estar entre 0 y 20."
+          value < 1 || value > 20
+            ? "El semestre equivalente debe estar entre 1 y 20."
             : null,
         lastName: isNotEmpty(
           "El apellido del estudiante es un campo requerido."
@@ -106,13 +106,15 @@ export const useUpdateStudent = () => {
             <TextInput
               label="Email del estudiante"
               placeholder="cquintal@uady.mx"
+              withAsterisk
               {...getInputProps("email")}
             />
             <NumberInput
               label="Semestre equivalente"
-              min={0}
+              min={1}
               max={20}
               placeholder="1"
+              withAsterisk
               {...getInputProps("equivalentDegree")}
             />
           </Stack>

@@ -98,6 +98,7 @@ export const useUpdateTeacher = () => {
             <TextInput
               label="Email del profesor"
               placeholder="cquintal@uady.mx"
+              withAsterisk
               {...getInputProps("email")}
             />
           </Stack>

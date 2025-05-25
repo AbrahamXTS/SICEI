@@ -1,4 +1,11 @@
-import { Button, Modal, Stack, Text, TextInput } from "@mantine/core";
+import {
+  Button,
+  Modal,
+  NumberInput,
+  Stack,
+  Text,
+  TextInput,
+} from "@mantine/core";
 import { isNotEmpty, useForm } from "@mantine/form";
 import { useDisclosure } from "@mantine/hooks";
 import { notifications } from "@mantine/notifications";
@@ -20,11 +27,16 @@ export const useUpdateSubject = () => {
       initialValues: {
         id: "",
         name: "",
+        offeredInDegree: 0,
       },
       mode: "uncontrolled",
       validate: {
         id: isNotEmpty("El id de la asignatura es inválido."),
         name: isNotEmpty("El nombre de la asignatura es un campo requerido."),
+        offeredInDegree: (value) =>
+          value < 1 || value > 20
+            ? "El grado en que se oferta la asignatura debe estar entre 1 y 20."
+            : null,
       },
       validateInputOnChange: true,
     });
@@ -75,6 +87,15 @@ export const useUpdateSubject = () => {
               placeholder="Sistemas distribuidos"
               withAsterisk
               {...getInputProps("name")}
+            />
+            <NumberInput
+              disabled
+              label="Grado en que se imparte"
+              min={1}
+              max={20}
+              placeholder="1"
+              withAsterisk
+              {...getInputProps("offeredInDegree")}
             />
           </Stack>
           <Button mt="md" type="submit">

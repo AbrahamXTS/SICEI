@@ -35,8 +35,8 @@ export const useCreateStudent = () => {
       lastName: isNotEmpty("El apellido del estudiante es un campo requerido."),
       name: isNotEmpty("El nombre del estudiante es un campo requerido."),
       equivalentDegree: (value) =>
-        value < 0 || value > 20
-          ? "El semestre equivalente debe estar entre 0 y 20."
+        value < 1 || value > 20
+          ? "El semestre equivalente debe estar entre 1 y 20."
           : null,
     },
     validateInputOnChange: true,
@@ -89,12 +89,14 @@ export const useCreateStudent = () => {
               label="Email del estudiante"
               placeholder="aespinosam@uady.mx"
               {...getInputProps("email")}
+              withAsterisk
             />
             <NumberInput
               label="Semestre equivalente"
-              min={0}
+              min={1}
               max={20}
               placeholder="1"
+              withAsterisk
               {...getInputProps("equivalentDegree")}
             />
           </Stack>
