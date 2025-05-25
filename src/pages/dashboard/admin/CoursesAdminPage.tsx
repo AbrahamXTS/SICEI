@@ -16,7 +16,8 @@ const COURSES_CATALOG_TABLE_COLUMNS: MRT_ColumnDef<CourseDTO>[] = [
   {
     id: "asignatura",
     header: "Asignatura",
-    accessorFn: ({ subject }) => subject?.name,
+    accessorFn: ({ subject }) =>
+      `${subject?.name} - Semestre ${subject?.offeredInDegree}`,
     filterVariant: "autocomplete",
   },
   {

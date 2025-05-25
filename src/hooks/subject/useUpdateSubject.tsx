@@ -35,7 +35,7 @@ export const useUpdateSubject = () => {
         name: isNotEmpty("El nombre de la asignatura es un campo requerido."),
         offeredInDegree: (value) =>
           value < 1 || value > 20
-            ? "El grado en que se oferta la asignatura debe estar entre 1 y 20."
+            ? "El semestre en que se oferta la asignatura debe estar entre 1 y 20."
             : null,
       },
       validateInputOnChange: true,
@@ -90,7 +90,7 @@ export const useUpdateSubject = () => {
             />
             <NumberInput
               disabled
-              label="Grado en que se imparte"
+              label="Semestre en que se imparte"
               min={1}
               max={20}
               placeholder="1"

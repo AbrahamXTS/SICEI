@@ -95,7 +95,7 @@ export const useCreateEnrollment = (course: CourseDTO) => {
             <Select
               data={studentsInSameDegree}
               label="Estudiante"
-              nothingFoundMessage="No se encontraron estudiantes cursando el mismo grado en el que se imparte el grupo"
+              nothingFoundMessage="No se encontraron estudiantes cursando el mismo semestre en el que se imparte el grupo"
               placeholder="Seleccione el estudiante a inscribir"
               searchable
               withAsterisk

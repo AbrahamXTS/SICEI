@@ -71,7 +71,7 @@ export const StudentsGroupedByEquivalentDegreeCardChart = ({
             <Table>
               <Table.Thead>
                 <Table.Tr>
-                  <Table.Th>Grado</Table.Th>
+                  <Table.Th>Semestre</Table.Th>
                   <Table.Th>No. de alumnos</Table.Th>
                 </Table.Tr>
               </Table.Thead>

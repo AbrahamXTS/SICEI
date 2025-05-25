@@ -32,12 +32,12 @@ export const HomePage = () => {
       <Flex direction={{ base: "column", md: "row" }} gap="md" mt="1rem">
         <StudentsGroupedByEquivalentDegreeCardChart
           data={regularStudentsCountByEquivalentDegree}
-          chartTitle="Estudiantes regulares por grado"
+          chartTitle="Estudiantes regulares por semestre"
           isGettingData={isGettingRegularStudentsGroupedByEquivalentDegree}
         />
         <StudentsGroupedByEquivalentDegreeCardChart
           data={irregularStudentsCountByEquivalentDegree}
-          chartTitle="Estudiantes con asignaturas reprobadas por grado"
+          chartTitle="Estudiantes con asignaturas reprobadas por semestre"
           isGettingData={isGettingIrregularStudentsGroupedByEquivalentDegree}
         />
       </Flex>
