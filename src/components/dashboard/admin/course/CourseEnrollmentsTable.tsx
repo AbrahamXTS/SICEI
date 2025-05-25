@@ -1,12 +1,18 @@
-import { Box, Button, Flex, Menu } from "@mantine/core";
-import { IconDeviceIpadStar, IconTrash } from "@tabler/icons-react";
+import { ActionIcon, Box, Button, Flex, Menu } from "@mantine/core";
+import {
+  IconDeviceIpadStar,
+  IconPrinter,
+  IconTrash,
+} from "@tabler/icons-react";
 import { MRT_ColumnDef } from "mantine-react-table";
+import { useRef } from "react";
+import { useReactToPrint } from "react-to-print";
 
 import { Table } from "@/components";
 import { useGetEnrollmentsByCourseId } from "@/hooks/enrollment";
+import { useCreateGrade, useUpdateGrade } from "@/hooks/grade";
 import { useCreateEnrollment, useDeleteEnrollment } from "@/hooks/enrollment";
 import { EnrollmentDTO } from "@/interfaces/http/responses";
-import { useCreateGrade, useUpdateGrade } from "@/hooks/grade";
 
 const COURSE_ENROLLMENTS_TABLE_COLUMNS: MRT_ColumnDef<EnrollmentDTO>[] = [
   {
@@ -52,15 +58,22 @@ export const CourseEnrollmentsTable = ({
   const { isUpdatingAGrade, showUpdateGradeModal, updateGradeModal } =
     useUpdateGrade(courseId);
 
+  const contentRef = useRef<HTMLDivElement>(null);
+  const reactToPrintFn = useReactToPrint({ contentRef });
+
   return (
     <>
-      <Flex justify="flex-end">
+      <Flex gap="sm" justify="flex-end">
+        <ActionIcon color="secondary" onClick={reactToPrintFn} size="input-sm">
+          <IconPrinter />
+        </ActionIcon>
+
         <Button onClick={() => showCreateEnrollmentModal(courseId)}>
           Inscribir alumno al curso
         </Button>
       </Flex>
 
-      <Box pt="md">
+      <Box pt="md" ref={contentRef}>
         <Table
           columns={COURSE_ENROLLMENTS_TABLE_COLUMNS}
           data={enrollments}

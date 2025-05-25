@@ -1,9 +1,12 @@
-import { Box } from "@mantine/core";
+import { ActionIcon, Box, Flex } from "@mantine/core";
 import { MRT_ColumnDef } from "mantine-react-table";
+import { IconPrinter } from "@tabler/icons-react";
+import { useRef } from "react";
+import { useReactToPrint } from "react-to-print";
 
 import { Table } from "@/components";
-import { EnrollmentDTO } from "@/interfaces/http/responses";
 import { useGetEnrollmentsByStudentId } from "@/hooks/enrollment";
+import { EnrollmentDTO } from "@/interfaces/http/responses";
 
 const STUDENT_KARDEX_TABLE_COLUMNS: MRT_ColumnDef<EnrollmentDTO>[] = [
   {
@@ -41,9 +44,18 @@ export const StudentKardexTable = ({ studentId }: StudentKardexTableProps) => {
   const { enrollments, isGettingEnrollments } =
     useGetEnrollmentsByStudentId(studentId);
 
+  const contentRef = useRef<HTMLDivElement>(null);
+  const reactToPrintFn = useReactToPrint({ contentRef });
+
   return (
     <>
-      <Box pt="md">
+      <Flex justify="flex-end">
+        <ActionIcon color="secondary" onClick={reactToPrintFn} size="input-sm">
+          <IconPrinter />
+        </ActionIcon>
+      </Flex>
+
+      <Box pt="md" ref={contentRef}>
         <Table
           columns={STUDENT_KARDEX_TABLE_COLUMNS}
           data={enrollments}

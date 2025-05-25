@@ -1,5 +1,18 @@
 import { PieChart, PieChartCell } from "@mantine/charts";
-import { Card, Center, Loader, Stack, Table, Title } from "@mantine/core";
+import {
+  ActionIcon,
+  Card,
+  Center,
+  Flex,
+  Loader,
+  Menu,
+  Stack,
+  Table,
+  Title,
+} from "@mantine/core";
+import { IconDotsVertical, IconPrinter } from "@tabler/icons-react";
+import { useRef } from "react";
+import { useReactToPrint } from "react-to-print";
 
 interface StudentsGroupedByEquivalentDegreeChartProps {
   chartTitle: string;
@@ -12,10 +25,33 @@ export const StudentsGroupedByEquivalentDegreeCardChart = ({
   isGettingData,
   chartTitle,
 }: StudentsGroupedByEquivalentDegreeChartProps) => {
+  const contentRef = useRef<HTMLDivElement>(null);
+  const reactToPrintFn = useReactToPrint({ contentRef });
+
   return (
     <Card radius="md" shadow="lg" w="100%">
-      <Stack>
-        <Title order={4}>{chartTitle}</Title>
+      <Stack ref={contentRef}>
+        <Flex justify="space-between">
+          <Title order={4}>{chartTitle}</Title>
+
+          <Menu>
+            <Menu.Target>
+              <ActionIcon color="gray" size="sm" variant="subtle">
+                <IconDotsVertical />
+              </ActionIcon>
+            </Menu.Target>
+
+            <Menu.Dropdown>
+              <Menu.Item
+                leftSection={<IconPrinter size="1rem" />}
+                onClick={reactToPrintFn}
+              >
+                Imprimir gráfico
+              </Menu.Item>
+            </Menu.Dropdown>
+          </Menu>
+        </Flex>
+
         {isGettingData ? (
           <Center>
             <Loader type="dots" />
