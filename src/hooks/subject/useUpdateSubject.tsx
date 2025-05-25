@@ -33,10 +33,6 @@ export const useUpdateSubject = () => {
       validate: {
         id: isNotEmpty("El id de la asignatura es inválido."),
         name: isNotEmpty("El nombre de la asignatura es un campo requerido."),
-        offeredInDegree: (value) =>
-          value < 1 || value > 20
-            ? "El semestre en que se oferta la asignatura debe estar entre 1 y 20."
-            : null,
       },
       validateInputOnChange: true,
     });
@@ -63,6 +59,7 @@ export const useUpdateSubject = () => {
       setValues({
         id: subject.id,
         name: subject.name,
+        offeredInDegree: subject.offeredInDegree,
       });
 
       openUpdateSubjectModal();
