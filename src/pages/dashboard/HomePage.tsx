@@ -1,11 +1,46 @@
-import { Card, Stack, Title } from "@mantine/core";
+import { Box, Divider, Flex, Text, Title } from "@mantine/core";
+
+import { useGetRegularStudentsGroupedByEquivalentDegree } from "@/hooks/metrics/useGetRegularStudentsGroupedByEquivalentDegree";
+import { StudentsGroupedByEquivalentDegreeCardChart } from "@/components/dashboard/StudentsGroupedByEquivalentDegreeChart";
+import { useGetIrregularStudentsGroupedByEquivalentDegree } from "@/hooks/metrics/useGetIrregularStudentsGroupedByEquivalentDegree";
+import { useAuth0 } from "@auth0/auth0-react";
 
 export const HomePage = () => {
+  const { user } = useAuth0();
+
+  const {
+    isGettingRegularStudentsGroupedByEquivalentDegree,
+    regularStudentsCountByEquivalentDegree,
+  } = useGetRegularStudentsGroupedByEquivalentDegree();
+
+  const {
+    irregularStudentsCountByEquivalentDegree,
+    isGettingIrregularStudentsGroupedByEquivalentDegree,
+  } = useGetIrregularStudentsGroupedByEquivalentDegree();
+
   return (
-    <Card mt="1rem" py="1.5rem" px="1.5rem" radius="md" shadow="lg">
-      <Stack>
-        <Title order={3}>SICEI UADY</Title>
-      </Stack>
-    </Card>
+    <>
+      <Box pb="lg" pt="xl">
+        <Title order={3} mb="md">
+          Panel administrativo
+        </Title>
+        <Text>¡Bienvenido de vuelta, {user?.name}!</Text>
+      </Box>
+
+      <Divider />
+
+      <Flex direction={{ base: "column", md: "row" }} gap="md" mt="1rem">
+        <StudentsGroupedByEquivalentDegreeCardChart
+          data={regularStudentsCountByEquivalentDegree}
+          chartTitle="Estudiantes regulares por grado"
+          isGettingData={isGettingRegularStudentsGroupedByEquivalentDegree}
+        />
+        <StudentsGroupedByEquivalentDegreeCardChart
+          data={irregularStudentsCountByEquivalentDegree}
+          chartTitle="Estudiantes con asignaturas reprobadas por grado"
+          isGettingData={isGettingIrregularStudentsGroupedByEquivalentDegree}
+        />
+      </Flex>
+    </>
   );
 };
