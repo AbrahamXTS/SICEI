@@ -14,7 +14,7 @@ const renderNavLinks = (links: NavbarItemType[]) => {
     return (
       <NavLinkMantine
         component={NavLink}
-        defaultOpened={location.pathname.includes(url)}
+        defaultOpened
         end
         key={url}
         label={label}
