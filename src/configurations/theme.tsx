@@ -31,3 +31,18 @@ export const theme = createTheme({
 });
 
 export const BRAND_LOGO_SRC = "/brand-logo.svg";
+
+export const GRAPHIC_COLORS = [
+  "#0088FE",
+  "#00C49F",
+  "#FFBB28",
+  "#FF8042",
+  "#A28CFE",
+  "#FF6699",
+  "#339933",
+  "#993333",
+  "#9999FF",
+  "#FFCCCC",
+  "#CCFF99",
+  "#FF9966",
+];

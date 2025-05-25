@@ -64,7 +64,7 @@ export const DashboardLayout = () => {
       </Drawer>
 
       <AppShell.Main bg={colors.gray[0]}>
-        <Container size="xl">
+        <Container pb="xl" size="xl">
           <Outlet />
         </Container>
       </AppShell.Main>

@@ -3,7 +3,9 @@ import {
   ActionIcon,
   Card,
   Center,
+  ColorSwatch,
   Flex,
+  Group,
   Loader,
   Menu,
   Stack,
@@ -14,16 +16,24 @@ import { IconDotsVertical, IconPrinter } from "@tabler/icons-react";
 import { useRef } from "react";
 import { useReactToPrint } from "react-to-print";
 
+import { EnrollmentDTO } from "@/interfaces/http/responses";
+
+interface ChartData extends PieChartCell {
+  dataset: EnrollmentDTO[][];
+}
+
 interface StudentsGroupedByEquivalentDegreeChartProps {
   chartTitle: string;
-  data: PieChartCell[];
+  data: ChartData[];
   isGettingData: boolean;
+  showCoursesFailedCount?: boolean;
 }
 
 export const StudentsGroupedByEquivalentDegreeCardChart = ({
+  chartTitle,
   data,
   isGettingData,
-  chartTitle,
+  showCoursesFailedCount = false,
 }: StudentsGroupedByEquivalentDegreeChartProps) => {
   const contentRef = useRef<HTMLDivElement>(null);
   const reactToPrintFn = useReactToPrint({ contentRef });
@@ -68,20 +78,53 @@ export const StudentsGroupedByEquivalentDegreeCardChart = ({
                 withTooltip
               />
             </Center>
-            <Table>
-              <Table.Thead>
+
+            <Table variant="vertical">
+              <Table.Tbody>
                 <Table.Tr>
                   <Table.Th>Semestre</Table.Th>
-                  <Table.Th>No. de alumnos</Table.Th>
+
+                  <Table.Th>Nombre del estudiante</Table.Th>
+
+                  {showCoursesFailedCount && (
+                    <Table.Th>Materias reprobadas</Table.Th>
+                  )}
                 </Table.Tr>
-              </Table.Thead>
-              <Table.Tbody>
-                {data.map((degree) => (
-                  <Table.Tr key={degree.name}>
-                    <Table.Td>{degree.name}</Table.Td>
-                    <Table.Td>{degree.value}</Table.Td>
-                  </Table.Tr>
-                ))}
+
+                {data.map((degree) =>
+                  degree.dataset.map((studentEnrollments, index) => {
+                    const student = studentEnrollments.at(0)?.student;
+
+                    return (
+                      <Table.Tr key={`${degree.name}-${student?.id ?? index}`}>
+                        {index === 0 && (
+                          <Table.Th rowSpan={degree.dataset.length}>
+                            <Group>
+                              <ColorSwatch color={degree.color} size={10} />
+                              <span>{degree.name}</span>
+                            </Group>
+                          </Table.Th>
+                        )}
+
+                        <Table.Td>
+                          {student?.name} {student?.lastName}{" "}
+                          {student?.secondLastName}
+                        </Table.Td>
+
+                        {showCoursesFailedCount && (
+                          <Table.Td>
+                            {
+                              studentEnrollments.filter(
+                                (studentEnrollment) =>
+                                  (studentEnrollment.grade?.score ?? 0) < 70
+                              ).length
+                            }
+                          </Table.Td>
+                        )}
+                      </Table.Tr>
+                    );
+                  })
+                )}
               </Table.Tbody>
             </Table>
           </>
