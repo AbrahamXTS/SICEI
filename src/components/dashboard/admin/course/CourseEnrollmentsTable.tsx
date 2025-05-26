@@ -87,7 +87,7 @@ export const CourseEnrollmentsTable = ({
   const reactToPrintFn = useReactToPrint({ contentRef });
 
   return (
-    <>
+    <Box ref={contentRef}>
       <Flex align="center" gap="sm" justify="space-between">
         <Badge color="gray">
           Promedio general del curso: {gradePointAverage}
@@ -108,7 +108,7 @@ export const CourseEnrollmentsTable = ({
         </Group>
       </Flex>
 
-      <Box pt="md" ref={contentRef}>
+      <Box pt="md">
         <Table
           columns={COURSE_ENROLLMENTS_TABLE_COLUMNS}
           data={enrollments}
@@ -155,6 +155,6 @@ export const CourseEnrollmentsTable = ({
         {createGradeModal}
         {updateGradeModal}
       </Box>
-    </>
+    </Box>
   );
 };

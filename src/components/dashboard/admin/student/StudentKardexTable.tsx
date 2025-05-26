@@ -1,4 +1,4 @@
-import { ActionIcon, Badge, Box, Flex, Group } from "@mantine/core";
+import { ActionIcon, Badge, Box, Flex } from "@mantine/core";
 import { MRT_ColumnDef } from "mantine-react-table";
 import { IconPrinter } from "@tabler/icons-react";
 import { useMemo, useRef } from "react";
@@ -62,9 +62,7 @@ export const StudentKardexTable = ({ studentId }: StudentKardexTableProps) => {
   return (
     <Box ref={contentRef}>
       <Flex align="center" justify="space-between">
-        <Group>
-          <Badge color="gray">Promedio general: {gradePointAverage}</Badge>
-        </Group>
+        <Badge color="gray">Promedio general: {gradePointAverage}</Badge>
 
         <ActionIcon color="secondary" onClick={reactToPrintFn} size="input-sm">
           <IconPrinter />

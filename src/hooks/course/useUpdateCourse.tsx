@@ -30,7 +30,7 @@ export const useUpdateCourse = () => {
       },
       mode: "uncontrolled",
       validate: {
-        id: isNotEmpty("El id del estudiante es inválido."),
+        id: isNotEmpty("El id del curso es inválido."),
         subjectId: isNotEmpty("La asignatura es un campo requerido."),
         teacherId: isNotEmpty("El profesor es un campo requerido."),
       },
@@ -68,7 +68,7 @@ export const useUpdateCourse = () => {
       <Modal
         opened={isUpdateCourseModalOpen}
         onClose={closeUpdateCourseModal}
-        title={<Text fw="bold">Editar estudiante</Text>}
+        title={<Text fw="bold">Editar curso</Text>}
         centered
       >
         <form onSubmit={onSubmit((product) => _updateCourse(product))}>
@@ -100,7 +100,7 @@ export const useUpdateCourse = () => {
             />
           </Stack>
           <Button mt="md" type="submit">
-            Editar estudiante
+            Editar curso
           </Button>
         </form>
       </Modal>

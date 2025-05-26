@@ -1,0 +1,31 @@
+@media print {
+  @page {
+    padding: 1.5cm;
+  }
+
+  * {
+    scrollbar-width: none;
+  }
+
+  ::-webkit-scrollbar {
+    display: none;
+  }
+
+  html,
+  body {
+    height: 100vh;
+    margin: 0px !important;
+    overflow: visible !important;
+    padding: 0px !important;
+  }
+
+  .mantine-Badge-label {
+    color: black;
+  }
+
+  .mrt-bottom-toolbar,
+  .mrt-global-filter-text-input,
+  .mrt-table-head-sort-button {
+    display: none;
+  }
+}

@@ -21,9 +21,10 @@ import { LandingPage } from "./pages/landing-page";
 
 import "dayjs/locale/es-mx";
 import "@mantine/core/styles.css";
-import '@mantine/charts/styles.css';
+import "@mantine/charts/styles.css";
 import "@mantine/notifications/styles.css";
 import "mantine-react-table/styles.css";
+import "./printing-styles.css";
 
 const queryClient = new QueryClient();
 
