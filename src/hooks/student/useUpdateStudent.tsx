@@ -1,4 +1,11 @@
-import { Button, Modal, NumberInput, Stack, Text, TextInput } from "@mantine/core";
+import {
+  Button,
+  Modal,
+  NumberInput,
+  Stack,
+  Text,
+  TextInput,
+} from "@mantine/core";
 import { isEmail, isNotEmpty, useForm } from "@mantine/form";
 import { useDisclosure } from "@mantine/hooks";
 import { notifications } from "@mantine/notifications";
@@ -29,10 +36,6 @@ export const useUpdateStudent = () => {
       validate: {
         id: isNotEmpty("El id del estudiante es inválido."),
         email: isEmail("El correo electrónico del estudiante es inválido."),
-        equivalentDegree: (value) =>
-          value < 1 || value > 20
-            ? "El semestre equivalente debe estar entre 1 y 20."
-            : null,
         lastName: isNotEmpty(
           "El apellido del estudiante es un campo requerido."
         ),
@@ -110,6 +113,7 @@ export const useUpdateStudent = () => {
               {...getInputProps("email")}
             />
             <NumberInput
+              disabled
               label="Semestre equivalente"
               min={1}
               max={20}
